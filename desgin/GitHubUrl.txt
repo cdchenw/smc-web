@@ -1,0 +1,8 @@
+#stock marketing charting program
+
+#screen flow
+https://github.com/cdchenw/smc-web/tree/master/desgin/Screenflow:Wireframe.docx
+
+#frontend project
+https://github.com/cdchenw/smc-web/
+
