@@ -6,3 +6,6 @@ https://github.com/cdchenw/smc-web/tree/master/desgin/Screenflow:Wireframe.docx
 #frontend project
 https://github.com/cdchenw/smc-web/
 
+#mysql database desgin(open with mysql workbench)
+https://github.com/cdchenw/smc-web/tree/master/desgin/smcdb.mwb
+
