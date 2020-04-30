@@ -1,0 +1,34 @@
+<div class="manage-ipo">
+  <form>
+    <div class="form-group form-inline justify-content-between">
+      <span>Total: {{total$ | async}}</span>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" sortable="code">Company Name</th>
+        <th scope="col" sortable="name">Stock Exchange</th>
+        <th scope="col" sortable="region">Price Per Share</th>
+        <th scope="col" sortable="contact">Total Share.</th>
+        <th scope="col" sortable="contact">Open Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ipo of ipoList$ | async; let rowNum = index;">
+        <th scope="row">{{ rowNum+1 }}</th>
+        <td>{{ ipo.companyName }}</td>
+        <td>{{ ipo.exchangeCode }}</td>
+        <td>{{ ipo.pricePerShare | currency: '$': true: '1.2-2' }}</td>
+        <td>{{ ipo.totalShare | number: '1.2-2'}}</td>
+        <td>{{ ipo.openDate }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end p-2" *ngIf="!isNoData">
+      <ngb-pagination
+        [collectionSize]="(total$ | async)!" [(page)]="ipoService.page" [pageSize]="ipoService.pageSize">
+      </ngb-pagination>
+    </div>
+  </form>
+</div>

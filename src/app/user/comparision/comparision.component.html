@@ -1,0 +1,73 @@
+<div class="comparision-page container-fluid">
+  <div class="search-condition-form row">
+    <div class="col-md-8 left-pannel">
+      <div class="form-group form-inline mb-3" *ngFor="let item of compareCEList; let index=index;">
+        <div class="input-group input-group-sm">
+          <span class="d-inline-flex align-items-center">Company/Sector:</span>
+          <select class="form-control ml-2" name="company" [(ngModel)]="item.companyCode" style="width: 120px;">
+            <option value='' disabled selected>Please Choose</option>  
+            <option *ngFor="let comitem of companyList" [ngValue]="comitem.id">{{ comitem.name }}</option>
+          </select>
+        </div>
+        <div class="input-group input-group-sm pl-3">
+          <span class="d-inline-flex align-items-center">Stock Exchange:</span>
+          <select class="form-control ml-2" name="exchange" [(ngModel)]="item.exchangeID" style="width: 120px;">
+            <option value='' disabled selected>Please Choose</option>  
+            <option *ngFor="let excitem of exchangeList" [ngValue]="excitem.id">{{ excitem.name }}</option>
+          </select>
+          <span (click)="handleRemoveCE(item)" style="line-height: 26px; cursor: pointer;" class="ml-2"><i class="iconfont iconfont-xl icon-shanchu"></i></span>
+          <span *ngIf="index<3 && index==compareCEList.length-1" (click)="handleAddCE()" style="line-height: 26px;cursor: pointer;" class="ml-2"><i class="iconfont iconfont-xl icon-more"></i></span>
+        </div>
+      </div>
+      <div class="form-group mb-3" *ngIf="compareCEList.length==4">
+        <p style="color: #6f42c1;">* Please notes that only max to four companies or sectors can be compared with and generate chart diagram.</p>
+      </div>
+    </div>
+    <div class="col-md-4 right-pannel">
+      <div class="form-group mb-3">
+        <div class="input-group input-group-sm">
+          <span style="width: 80px;" class="d-inline-flex align-items-center">Start Date:</span>
+          <input class="form-control col-md-8 ml-2" placeholder="yyyy-mm-dd"
+                  name="startDate" [(ngModel)]="startDate" ngbDatepicker #calendar1="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="calendar1.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <div class="input-group input-group-sm" >
+          <span style="width:80px;"  class="d-inline-flex align-items-center">End Date:</span>
+          <input class="form-control ml-2" placeholder="yyyy-mm-dd"
+                  name="endDate" [(ngModel)]="endDate" ngbDatepicker #calendar2="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="calendar2.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <div class="input-group input-group-sm" >
+          <span style="width:80px;"  class="d-inline-flex align-items-center">Periodicity:</span>
+          <select class="form-control ml-2" [(ngModel)]="periodicity">
+            <option value="week">By Week</option>
+            <option value="month">By Month</option>
+            <option value="quarter">By Quarter</option>
+            <option value="year">By Year</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group mb-3" style="margin-top: 50px;">
+        <div class="input-group input-group-sm justify-content-end" >
+          <button class="btn btn-primary">Generate Chart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="echarts-form">
+    <div class="form-group mb-3 mt-3">
+      <div class="input-group input-group-sm justify-content-end" >
+        <button class="btn btn-secondary">DownLoad</button>
+      </div>
+    </div>
+    <div echarts [options]="options" class="comparision-chart"></div>
+  </div>
+</div>

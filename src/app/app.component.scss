@@ -1,0 +1,25 @@
+@import "../assets/styles/variables";
+
+.headerbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #252525;//$primary;//#772953;
+  color: white;
+  padding: 0px 24px;
+  height: 50px;
+  .status-area{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    i{
+      margin: 0px 0px 0px 12px
+    }
+  }
+}
+
+.content-main{
+  padding: 24px 0px;
+  height: calc(100% - 87px);
+  background-color: whitesmoke;
+}

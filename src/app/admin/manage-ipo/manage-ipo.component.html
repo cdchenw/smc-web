@@ -1,0 +1,71 @@
+<div class="manage-ipo">
+  <form>
+    <div class="form-group form-inline justify-content-between">
+      <span>Total: {{total$ | async}}</span>
+      <button type="button" class="btn btn-primary" (click)="handleOpenNewModal(ipoModal)">Add</button>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" sortable="code">Company Name</th>
+        <th scope="col" sortable="name">Stock Exchange</th>
+        <th scope="col" sortable="region">Price Per Share</th>
+        <th scope="col" sortable="contact">Total Share.</th>
+        <th scope="col" sortable="contact">Open Date</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ipo of ipoList$ | async; let rowNum = index;">
+        <th scope="row">{{ rowNum+1 }}</th>
+        <td>{{ ipo.companyName }}</td>
+        <td>{{ ipo.exchangeCode }}</td>
+        <td>{{ ipo.pricePerShare | currency: '$': true: '1.2-2' }}</td>
+        <td>{{ ipo.totalShare | number: '1.2-2'}}</td>
+        <td>{{ ipo.openDate }}</td>
+        <td><span class="smc-edit-button" (click)="handleOpenEditModal(ipoModal, ipo)"><i class="iconfont icon-edit"></i></span></td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end p-2" *ngIf="!isNoData">
+      <ngb-pagination
+        [collectionSize]="(total$ | async)!" [(page)]="ipoService.page" [pageSize]="ipoService.pageSize">
+      </ngb-pagination>
+    </div>
+  </form>
+  <!-- Modal -->
+  <ng-template #ipoModal let-modal>
+    <div class="modal-header">
+      <h6 class="modal-title">{{ipoModalTitle}}</h6>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="false">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="row mb-3">
+          <div class="col-md-6"><span class="fixed-modal-label">Company Name: </span> <input type="text" name="companyName" [(ngModel)]="currIpo.companyName"/></div>
+          <div class="col-md-6"><span class="fixed-modal-label">Stock Exchange:</span> <input type="text" name="exchangeCode" [(ngModel)]="currIpo.exchangeCode"/> </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6"><span class="fixed-modal-label">Price Per Share:</span><input type="text" name="pricePerShare" [(ngModel)]="currIpo.pricePerShare"/> </div>
+          <div class="col-md-6"><span class="fixed-modal-label">Total Share.:</span><input type="text" name="totalShare" [(ngModel)]="currIpo.totalShare"/> </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12"><span class="fixed-modal-label">Open Date:</span><input type="text" name="openDate" [(ngModel)]="currIpo.openDate"/> </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12 d-flex align-items-start">
+            <span class="fixed-modal-label">Brief:</span>
+            <textarea name="brief" rows="4" maxlength="800" placeholder="please fill stock exchange brief description." style="width: calc(100% - 178px);" [(ngModel)]="currIpo.brief"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary">Save</button>
+    </div>
+  </ng-template>
+</div>

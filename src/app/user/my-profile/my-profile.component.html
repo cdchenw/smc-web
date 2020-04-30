@@ -1,0 +1,39 @@
+<div class="my-profile-page container-fluid">
+  <div class="profile-detail" *ngIf="isViewMode">
+    <div class="form-group form-inline mb-3">
+      <div class="input-group input-group-sm">
+        <span class="d-inline-flex align-items-center" style="width: 130px;">User Name:</span>
+        <span>{{userProfile.name}}</span>
+      </div>
+    </div>
+    <div class="form-group form-inline mb-3">
+      <div class="input-group input-group-sm">
+        <span class="d-inline-flex align-items-center" style="width: 130px;">Mobile Number:</span>
+        <span>{{userProfile.mobile}}</span>
+      </div>
+    </div>
+    <div class="form-group mb-3" style="margin-top: 50px;">
+      <span class="btn-link link" (click)="handleEditBtn()">Edit Profile</span>
+    </div>
+  </div>
+  <div class="profile-update-form" *ngIf="!isViewMode">
+    <div class="form-group form-inline mb-3">
+      <div class="input-group input-group-sm">
+        <span class="d-inline-flex align-items-center" style="width: 130px;">User Name:</span>
+        <input type="text" name="userName" [(ngModel)]="userProfile.name" style="width: 200px;"/>
+      </div>
+    </div>
+    <div class="form-group form-inline mb-3">
+      <div class="input-group input-group-sm">
+        <span class="d-inline-flex align-items-center" style="width: 130px;">Mobile Number:</span>
+        <input type="text" name="mobile" [(ngModel)]="userProfile.mobile" style="width: 200px;"/>
+      </div>
+    </div>
+    <div class="form-group mb-3" style="margin-top: 50px;">
+      <div class="input-group input-group-sm justify-content-start" >
+        <button class="btn btn-secondary mr-3" (click)="handleCancelUpdate()">Cancel</button>
+        <button class="btn btn-primary" (click)="handleSubmitUpdate()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.import-success-page{
+  display: flex;
+  align-items: top;
+  justify-content: center;
+
+  .result-board{
+
+    .result-message{
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 340px;
+
+      >p{
+        text-align: center;
+      }
+    }
+  }
+}

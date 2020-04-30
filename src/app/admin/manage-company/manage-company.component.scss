@@ -1,0 +1,14 @@
+.manage-company-page{
+  table{
+    table-layout:fixed;
+    word-break:break-all;
+  }
+
+  table td>span.col-val{
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow:ellipsis;
+  }
+}

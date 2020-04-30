@@ -1,0 +1,29 @@
+<div class="regist-page">
+  <div class="content">
+    <form class="regist-form" name="signup">  
+        <div class="form-group mb-2">
+          <label for="inputName">Username</label>
+          <input [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        </div>
+        <div class="form-group mb-2">
+          <label for="inputPassword">Password</label>
+          <input [ngModelOptions]="{standalone: true}" type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="form-group mb-2">
+          <label for="inputPassword">Password</label>
+          <input [ngModelOptions]="{standalone: true}" type="confirmPwd" [(ngModel)]="confirmPwd" name="confirmPwd" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="form-group mb-2">
+          <label for="inputEmail">Email</label>
+          <input [ngModelOptions]="{standalone: true}" type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Email" required>
+        </div>
+        <div class="form-group mb-4">
+          <label for="inputMobileNumber">Mobile Number</label>
+          <input [ngModelOptions]="{standalone: true}" type="tel" [(ngModel)]="mobile" name="mobile" class="form-control" placeholder="Mobile Number" required>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="handleSignUp()">Sign Up</button>
+        <a class="align-block" href="/login">Already have an account? Click here back to log in.</a>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2021</p>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="import-data-page">
+  <form>
+    <div class="form-group">
+      <label for="uploadFile">Select excel file to  be uploaded:</label>
+      <input type="file" class="form-control form-control-sm" id="uploadFile" (change)="handleFileSelect($event.target.files)">
+      <input type="button" class="btn btn-primary upload-button" value="Upload"/>
+    </div>
+    <div class="form-group">
+      <a href="">Click here to download sample excel file</a>
+    </div>
+  </form>
+</div>

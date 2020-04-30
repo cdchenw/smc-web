@@ -1,0 +1,29 @@
+
+.regist-page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0f0425;
+  color: rgb(238, 217, 217);
+  min-width: 768px;
+  .content {
+    width: 400px;
+    .regist-form {
+      width: 100%;
+      max-width: 420px;
+      padding: 15px;
+      .align-block {
+        display: block;
+        text-align: center;
+        margin: 16px;
+      }
+    }
+  }
+}

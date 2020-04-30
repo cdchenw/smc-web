@@ -1,0 +1,40 @@
+<div class="company-page">
+  <form>
+    <div class="form-group form-inline justify-content-between">
+      <div class="form-inline">
+      Filter By Name: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="companyService.searchTerm"/>
+        <span class="ml-3" *ngIf="companyService.loading$ | async">Loading...</span>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
+        <th scope="col" sortable="turnOver" (sort)="onSort($event)">Turn Over</th>
+        <th scope="col" sortable="ceo" (sort)="onSort($event)">CEO</th>
+        <th scope="col" sortable="boardOfDirector" (sort)="onSort($event)">Board Of Director</th>
+        <th scope="col" sortable="sector" (sort)="onSort($event)">Sector</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let company of companyList$ | async">
+        <th scope="row">{{ company.logo }}</th>
+        <td><ngb-highlight [result]="company.name" [term]="companyService.searchTerm"></ngb-highlight></td>
+        <td>{{ company.turnover | currency: '$': true: '1.2-2' }}</td>
+        <td>{{ company.ceo }}</td>
+        <td>{{ company.boardOfDirector }}</td>
+        <td><ul><li *ngFor="let item of company.sector">{{item.name}}</li></ul></td>
+        <td><input type="checkbox" value=""/></td>
+      </tr>
+      </tbody>
+    </table>
+  
+    <div class="d-flex justify-content-end p-2">
+      <ngb-pagination
+        [collectionSize]="(total$ | async)!" [(page)]="companyService.page" [pageSize]="companyService.pageSize">
+      </ngb-pagination>
+    </div>
+  </form>
+</div>

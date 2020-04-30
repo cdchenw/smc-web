@@ -1,1 +1,74 @@
+@import "./assets/styles/variables";//override bootstrap variables
+
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap";
+
+@import "./assets/vendor/iconfont/iconfont.css";
+
+@import "./assets/styles/icons";
+
+html, body{
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  font-size: 14px;
+  min-width: 768px;
+  overflow: scroll;
+}
+
+ol, ul, dl{
+  margin: 0;
+}
+
+.table thead th{
+  background-color: #6a5050;//$primary;
+  color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd){
+  background-color: #f8fafc;
+}
+
+.btn-secondary{
+  color: $primary;
+  background-color: whitesmoke;
+  border: 1px solid $primary;
+}
+
+.table{
+  font-size: $font-size-primary;
+}
+
+
+
+//customize defined css
+.fixed-modal-label{
+  display: inline-block;
+  width: 140px;
+  line-height: 31px;
+}
+
+.link{
+  cursor: pointer;
+}
+
+.link.link-primary{
+  color: $primary;
+  :focus{
+    color: $secondary;
+  }
+}
+
+.cp{
+  cursor: pointer;
+}
+
+.icon-primary{
+  color: $primary;
+}
+
+.modal-dialog{
+  button:focus{
+    outline: none;
+  }
+}
