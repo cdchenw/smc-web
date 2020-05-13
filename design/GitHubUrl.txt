@@ -9,3 +9,22 @@ https://github.com/cdchenw/smc-web/
 #mysql database desgin(open with mysql workbench)
 https://github.com/cdchenw/smc-web/tree/master/desgin/smcdb.mwb
 
+#database sql
+https://github.com/cdchenw/smc-web/tree/master/desgin/smcdb_ddl.sql
+
+#micro service for back end
+https://github.com/cdchenw/smc-auth-service
+https://github.com/cdchenw/smc-company-service
+https://github.com/cdchenw/smc-stock-service
+https://github.com/cdchenw/smc-upload-service
+
+https://github.com/cdchenw/smc-gateway
+https://github.com/cdchenw/smc-service-registry
+
+
+
+
+
+
+
+
