@@ -7,6 +7,8 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from '../directives/sortable-header.directive';
 import { Company } from '../interface/company';
 import { COMPANIES } from '../mock-data/company-mock';
+import { HttpClient } from '@angular/common/http';
+import { SMC_APIS } from '../common';
 
 interface SearchResult {
   companyList: Company[];
@@ -56,7 +58,9 @@ export class CompanyService {
     sortDirection: ''
   };
 
-  constructor(private pipe: DecimalPipe) {
+  constructor(
+    private _httpClient: HttpClient,
+    private pipe: DecimalPipe) { 
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
       debounceTime(200),
@@ -90,6 +94,9 @@ export class CompanyService {
   }
 
   private _search(): Observable<SearchResult> {
+
+    return this._httpClient.get<any>(SMC_APIS.company);
+
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
 
     // 1. sort

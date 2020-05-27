@@ -16,12 +16,12 @@ export class Broadcaster {
   }
 
   public broadcast(key: any, data?: any): void {
-    this._eventBus.emit({key: key, data: data});
+    this._eventBus.emit({ key: key, data: data });
   }
 
-  public subscribe(key: string, callback: any): void{
+  public subscribe(key: string, callback: any): void {
     this._eventBus.subscribe(_event => {
-      if(_event&&_event.key==key) {
+      if (_event && _event.key == key) {
         callback(_event.data);
       }
     });
