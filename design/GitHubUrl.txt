@@ -17,8 +17,9 @@ https://github.com/cdchenw/smc-auth-service
 https://github.com/cdchenw/smc-company-service
 https://github.com/cdchenw/smc-stock-service
 https://github.com/cdchenw/smc-upload-service
-
+#gateway
 https://github.com/cdchenw/smc-gateway
+#eureka server
 https://github.com/cdchenw/smc-service-registry
 
 
