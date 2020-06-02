@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { Observable, Subject, of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Broadcaster, SMC_APIS, SMC_CONSTANTS } from '.';
+import { Broadcaster } from './broadcaster';
+import { SMC_APIS } from './api.config';
+import { SMC_CONSTANTS } from './constant';
 
 const HTTP_TIMEOUT = 30000; // 3s
 
@@ -33,6 +35,7 @@ export class SmcHttpInterceptor implements HttpInterceptor {
   //construct the http requst with new header 
   protected normalizeRequestHeaders(request: HttpRequest<any>): HttpRequest<any> {
     let modifiedHeaders = new HttpHeaders();
+    modifiedHeaders = modifiedHeaders.set('Content-Type', 'application/json');
     if (request.url.indexOf(SMC_APIS.authenticate) == -1) {
       modifiedHeaders = this.addAuthorizationHeaders(modifiedHeaders);
     }
@@ -50,7 +53,6 @@ export class SmcHttpInterceptor implements HttpInterceptor {
       throw "Authorization required!";
     }
     headers = headers.set('Authorization', accessToken);
-    headers = headers.set('content-type', 'application/json');
     return headers;
   }
 

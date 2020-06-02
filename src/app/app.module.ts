@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DecimalPipe} from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -25,6 +25,7 @@ import { ResetPasswordComponent } from './user/reset-password/reset-password.com
 import { HelpCenterComponent } from './user/help-center/help-center.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistComponent } from './user/regist/regist.component';
+import { SmcHttpInterceptor } from './common';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,10 @@ import { RegistComponent } from './user/regist/regist.component';
     NgbModule,
     NgxEchartsModule
   ],
-  providers: [DecimalPipe],
+  providers: [
+    DecimalPipe,
+    { provide: HTTP_INTERCEPTORS, useClass: SmcHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

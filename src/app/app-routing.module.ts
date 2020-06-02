@@ -13,20 +13,23 @@ import { ResetPasswordComponent } from './user/reset-password/reset-password.com
 import { HelpCenterComponent } from './user/help-center/help-center.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistComponent } from './user/regist/regist.component';
+import { AuthGuard } from './common/auth.guard';
+import { AdminGuard } from './common/admin.guard';
+import { UserGuard } from './common/user.guard';
 
 const routes: Routes = [
   { path: '',  redirectTo: '/company', pathMatch: 'full'},
-  { path: 'import', component: ImportDataComponent },
-  { path: 'import-success', component: ImportSuccessComponent },
-  { path: 'mcompany', component: ManageCompanyComponent },
-  { path: 'exchange', component: ManageExchangeComponent },
-  { path: 'ipo', component: ManageIpoComponent },
-  { path: 'company', component: CompanyComponent },
-  { path: 'iposplan', component: IposPlanComponent },
-  { path: 'comparision', component: ComparisionComponent },
-  { path: 'profile', component: MyProfileComponent },
-  { path: 'updatepwd', component: ResetPasswordComponent },
-  { path: 'helpcenter', component: HelpCenterComponent },
+  { path: 'import', component: ImportDataComponent, canActivate: [ AuthGuard , AdminGuard]},
+  { path: 'import-success', component: ImportSuccessComponent, canActivate: [ AuthGuard, AdminGuard ]},
+  { path: 'mcompany', component: ManageCompanyComponent, canActivate: [ AuthGuard, AdminGuard] },
+  { path: 'exchange', component: ManageExchangeComponent, canActivate: [ AuthGuard, AdminGuard] },
+  { path: 'ipo', component: ManageIpoComponent, canActivate: [ AuthGuard, AdminGuard ] },
+  { path: 'company', component: CompanyComponent, canActivate: [ AuthGuard, UserGuard ] },
+  { path: 'iposplan', component: IposPlanComponent, canActivate: [ AuthGuard, UserGuard ] },
+  { path: 'comparision', component: ComparisionComponent, canActivate: [ AuthGuard, UserGuard] },
+  { path: 'profile', component: MyProfileComponent, canActivate: [ AuthGuard, UserGuard ] },
+  { path: 'updatepwd', component: ResetPasswordComponent, canActivate: [ AuthGuard, UserGuard ] },
+  { path: 'helpcenter', component: HelpCenterComponent, canActivate: [ AuthGuard, UserGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'regist', component: RegistComponent }
 ];

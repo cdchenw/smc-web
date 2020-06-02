@@ -1,43 +1,35 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, NavigationExtras, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Params, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { GlobalService } from './global.service';
+import { SMC_CONSTANTS } from './constant';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
+export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(
+    private _router: Router,
+    private _globals: GlobalService
+  ) { }
   
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    state: RouterStateSnapshot): Observable<boolean>{
+    return this.checkLogin(state.url, next.params);
   }
 
-  canActivateChild(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-
-  canDeactivate(
-    component: unknown,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    let navigationExtras: NavigationExtras = {
-      // queryParams: { 'session_id': sessionId },
-      // fragment: 'anchor'
-    };
-    // Navigate to the login page with extras
-    this.router.navigate(['/error'], navigationExtras);
+  checkLogin(url: string, queryParams: Params): Observable<boolean> {
+    if(this.isLoggedIn()){
+      return of(true);
+    }
+    this._router.navigate(['/login']);
     return of(false);
   }
+
+  private isLoggedIn(): boolean{
+    return localStorage.getItem(SMC_CONSTANTS.API_TOKEN) && !!this._globals.currentUser;
+  }
+
 }

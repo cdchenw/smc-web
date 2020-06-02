@@ -8,7 +8,7 @@
     </div>
   </div>
   <div *ngIf="!globalService.isAdmin" class="status-area" ngbDropdown>
-    <span>Hi, {{ globalService.currUser?.name }}</span><span style="cursor: pointer;" id="myProfileMenue" ngbDropdownToggle><i class="iconfont icon-user"></i></span>
+    <span>Hi, {{ globalService.currentUser?.username }}</span><span style="cursor: pointer;" id="myProfileMenue" ngbDropdownToggle><i class="iconfont icon-user"></i></span>
     <div ngbDropdownMenu aria-labelledby="myProfileMenue">
       <button ngbDropdownItem (click)="goToLink('/helpcenter')">Help Center</button>
       <button ngbDropdownItem (click)="goToLink('/updatepwd')">Update Password</button>

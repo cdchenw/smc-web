@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/interface/user';
-import { GlobalService } from 'src/app/services/global.service';
+import { GlobalService } from 'src/app/common';
 
 @Component({
   selector: 'user-my-profile',
@@ -14,7 +14,7 @@ export class MyProfileComponent implements OnInit {
   constructor(private _globalService: GlobalService) { }
 
   ngOnInit(): void {
-    this.userProfile = this._globalService.currUser;
+    this.userProfile = this._globalService.currentUser ? this._globalService.currentUser : {} as User;
   }
 
   handleEditBtn(): void{
@@ -22,12 +22,12 @@ export class MyProfileComponent implements OnInit {
   }
 
   handleCancelUpdate(): void{
-    this.userProfile = this._globalService.currUser;
+    this.userProfile = this._globalService.currentUser;
     this.isViewMode = true;
   }
 
   handleSubmitUpdate(): void{
-    this.userProfile = this._globalService.currUser;
+    this.userProfile = this._globalService.currentUser;
     this.isViewMode = true;
     //tbd: request http user put method.
   }
