@@ -8,6 +8,9 @@ import { StockExchange } from '../../interface/stock-exchange';
 
 import { COMPANIES } from '../../mock-data/company-mock';
 import { STOCKEXCHANGES } from '../../mock-data/stock-exchange-mock';
+import { CompanyService } from 'src/app/services/company.service';
+import { Observable } from 'rxjs';
+import { StockExchangeService } from 'src/app/services/stock-exchange.service';
 
 
 
@@ -31,11 +34,18 @@ export class ComparisionComponent implements OnInit {
   startDate: NgbDateStruct;
   endDate: NgbDateStruct;
   periodicity: string = "month";
-  companyList: Array<Company>;
-  exchangeList: Array<StockExchange>;
+  // companyList: Array<Company>;
+  companyList$: Observable<Company[]>;
+  // exchangeList: Array<StockExchange>;
+  exchangeList$: Observable<StockExchange[]>;
   options: EChartOption;
 
-  constructor() { }
+  constructor(
+    private _companyService: CompanyService,
+    private _stockExchangeService: StockExchangeService) {
+    this.companyList$ = _companyService.companyList$;
+    this.exchangeList$ = _stockExchangeService.exchangeList$;
+  }
 
   ngOnInit(): void {
     this.compareCEList = [{
@@ -43,8 +53,8 @@ export class ComparisionComponent implements OnInit {
       companyCode: null,
       exchangeID: null
     }];
-    this.companyList = COMPANIES;
-    this.exchangeList = STOCKEXCHANGES;
+    // this.companyList = COMPANIES;
+    // this.exchangeList = STOCKEXCHANGES;
     this.options = {
       legend: {
         data: ['Apple', 'Oracle']

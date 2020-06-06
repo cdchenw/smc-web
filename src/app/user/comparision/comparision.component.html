@@ -6,14 +6,14 @@
           <span class="d-inline-flex align-items-center">Company/Sector:</span>
           <select class="form-control ml-2" name="company" [(ngModel)]="item.companyCode" style="width: 120px;">
             <option value='' disabled selected>Please Choose</option>  
-            <option *ngFor="let comitem of companyList" [ngValue]="comitem.id">{{ comitem.name }}</option>
+            <option *ngFor="let comitem of companyList$ | async" [ngValue]="comitem.id">{{ comitem.name }}</option>
           </select>
         </div>
         <div class="input-group input-group-sm pl-3">
           <span class="d-inline-flex align-items-center">Stock Exchange:</span>
           <select class="form-control ml-2" name="exchange" [(ngModel)]="item.exchangeID" style="width: 120px;">
             <option value='' disabled selected>Please Choose</option>  
-            <option *ngFor="let excitem of exchangeList" [ngValue]="excitem.id">{{ excitem.name }}</option>
+            <option *ngFor="let excitem of exchangeList$ | async" [ngValue]="excitem.id">{{ excitem.name }}</option>
           </select>
           <span (click)="handleRemoveCE(item)" style="line-height: 26px; cursor: pointer;" class="ml-2"><i class="iconfont iconfont-xl icon-shanchu"></i></span>
           <span *ngIf="index<3 && index==compareCEList.length-1" (click)="handleAddCE()" style="line-height: 26px;cursor: pointer;" class="ml-2"><i class="iconfont iconfont-xl icon-more"></i></span>

@@ -25,6 +25,7 @@ export class CompanyComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.companyService.fetch();
   }
 
   onSort({column, direction}: SortEvent) {

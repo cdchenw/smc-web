@@ -22,6 +22,7 @@ export class IposPlanComponent implements OnInit {
 
   ngOnInit(): void {
     let self = this;
+    this.ipoService.fetch();
     this.total$.subscribe(totalNum=>{
       self.isNoData = !(totalNum>0);
     });

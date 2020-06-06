@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, delay, switchMap, tap, map } from 'rxjs/operators';
 
 import { StockExchange } from '../interface/stock-exchange';
-import { STOCKEXCHANGES } from '../mock-data/stock-exchange-mock';
+// import { STOCKEXCHANGES } from '../mock-data/stock-exchange-mock';
+import { HttpClient } from '@angular/common/http';
+import { SMC_APIS } from '../common';
 
 interface SearchResult {
   exchangeList: StockExchange[];
@@ -30,7 +32,9 @@ export class StockExchangeService {
     pageSize: 15
   };
 
-  constructor(private pipe: DecimalPipe) {
+  constructor(
+    private _httpClient: HttpClient,
+    private pipe: DecimalPipe) {
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
       debounceTime(200),
@@ -62,15 +66,23 @@ export class StockExchangeService {
   private _search(): Observable<SearchResult> {
     const {pageSize, page} = this._state;
 
-    // 1. get from host
-    let exchangeList = STOCKEXCHANGES;
+    return this._httpClient.get<any>(SMC_APIS.stockExchange).pipe(
+      map(data=>{
+        // 1. get from host
+        let exchangeList = data;
 
-    // 2. sort by stock code
-    exchangeList.sort();
-    const total = exchangeList.length;
+        // 2. sort by stock code
+        exchangeList.sort();
+        const total = exchangeList.length;
 
-    // 3. paginate
-    exchangeList = exchangeList.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({exchangeList, total});
+        // 3. paginate
+        exchangeList = exchangeList.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+        return {exchangeList, total};
+      })
+    );
+  }
+
+  public fetch(): void{
+    this._search$.next();
   }
 }
