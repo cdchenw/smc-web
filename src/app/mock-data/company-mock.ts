@@ -1,6 +1,6 @@
 import { Company } from '../interface/company';
 
-export const COMPANIES: Company[] = [
+export const COMPANIES: any[] = [
   {
     id: '19ebfe69-624d-4307-93d3-4d0354841158',
     logo: '',

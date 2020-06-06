@@ -26,6 +26,7 @@ import { HelpCenterComponent } from './user/help-center/help-center.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistComponent } from './user/regist/regist.component';
 import { SmcHttpInterceptor } from './common';
+import { ToastsComponent } from './components/toasts/toasts.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SmcHttpInterceptor } from './common';
     ResetPasswordComponent,
     HelpCenterComponent,
     LoginComponent,
-    RegistComponent
+    RegistComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,

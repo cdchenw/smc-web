@@ -1,9 +1,12 @@
+import { StockExchange } from './stock-exchange';
+
 export interface IPO{
   id: string;
-  companyName: string;
-  exchangeCode: string;
+  compId: string;
+  stockCode: string;
+  stockExchange: StockExchange;
   pricePerShare: number;
   totalShare: number;
   openDate: string;
-  brief: String;
+  remarks: string;
 }

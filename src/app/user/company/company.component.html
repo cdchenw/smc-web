@@ -22,10 +22,10 @@
       <tr *ngFor="let company of companyList$ | async">
         <th scope="row">{{ company.logo }}</th>
         <td><ngb-highlight [result]="company.name" [term]="companyService.searchTerm"></ngb-highlight></td>
-        <td>{{ company.turnover | currency: '$': true: '1.2-2' }}</td>
+        <td>{{ company.turnOver | currency: '$': true: '1.2-2' }}</td>
         <td>{{ company.ceo }}</td>
-        <td>{{ company.boardOfDirector }}</td>
-        <td><ul><li *ngFor="let item of company.sector">{{item.name}}</li></ul></td>
+        <td>{{ company.boardOfDirectors }}</td>
+        <td><ul><li *ngFor="let item of company.sectors">{{item.name}}</li></ul></td>
         <td><input type="checkbox" value=""/></td>
       </tr>
       </tbody>

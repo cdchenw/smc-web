@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalService } from './common';
+import { GlobalService, SMC_CONSTANTS } from './common';
 
 @Component({
   selector: 'app-root',
@@ -38,5 +38,7 @@ export class AppComponent implements OnInit{
 
   handleLogOut(): void{
     console.log("log out");
+    localStorage.removeItem(SMC_CONSTANTS.API_TOKEN);
+    this._router.navigateByUrl("/login");
   }
 }

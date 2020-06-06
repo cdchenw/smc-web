@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, delay, switchMap, tap, map } from 'rxjs/operators';
 
 import { IPO } from '../interface/ipo';
-import { IPO_DATA } from '../mock-data/ipo-mock';
+// import { IPO_DATA } from '../mock-data/ipo-mock';
+import { SMC_APIS } from '../common';
+import { HttpClient } from '@angular/common/http';
 
 interface SearchResult {
   ipoList: IPO[];
@@ -29,7 +31,9 @@ export class IpoService {
     pageSize: 15
   };
 
-  constructor(private pipe: DecimalPipe) {
+  constructor(
+    private _httpClient: HttpClient,
+    private pipe: DecimalPipe) {
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
       debounceTime(200),
@@ -61,15 +65,24 @@ export class IpoService {
   private _search(): Observable<SearchResult> {
     const {pageSize, page} = this._state;
 
-    // 1. get from host(TBD)
-    let ipoList = IPO_DATA;
+    return this._httpClient.get<any>(SMC_APIS.ipo).pipe(
+      map(data=>{
+        // 1. get from host(TBD)
+        let ipoList = data;
 
-    // 2. sort by open date desc
-    ipoList.sort();
-    const total = ipoList.length;
+        // 2. sort by open date desc
+        ipoList.sort();
+        const total = ipoList.length;
 
-    // 3. paginate
-    ipoList = ipoList.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({ipoList, total});
+        // 3. paginate
+        ipoList = ipoList.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+        return {ipoList, total};
+      })
+    );
+    
+  }
+
+  public fetch(): void{
+    this._search$.next();
   }
 }

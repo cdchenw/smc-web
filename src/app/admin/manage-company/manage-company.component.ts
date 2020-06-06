@@ -94,12 +94,12 @@ export class ManageCompanyComponent implements OnInit {
       id: null,
       logo: null,
       name: null,
-      turnover: null,
+      turnOver: null,
       ceo: null,
-      boardOfDirector: null,
-      sector: [],
+      boardOfDirectors: null,
+      sectors: [],
       briefWriteUp: null,
-      stockExchagneList: [],
+      companyExchanges: [],
       isCollapsed: false
     };
     this.companyModalTitle = "Add New Company";

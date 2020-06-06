@@ -1,6 +1,6 @@
 import { StockExchange } from '../interface/stock-exchange';
 
-export const STOCKEXCHANGES: StockExchange[] = [
+export const STOCKEXCHANGES: any[] = [
   {
     id: '2a1c2acc-767b-477f-92bd-c23d5d887279',
     code: 'NYSE',

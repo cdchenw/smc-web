@@ -28,7 +28,7 @@
             <td><ngb-highlight [result]="company.name" [term]="companyService.searchTerm"></ngb-highlight></td>
             <td><span class="col-val">{{ company.turnover | currency: '$': true: '1.2-2' }}</span></td>
             <td><span class="col-val">{{ company.ceo }}</span></td>
-            <td><span class="col-val">{{ company.boardOfDirector }}</span></td>
+            <td><span class="col-val">{{ company.boardOfDirectors }}</span></td>
             <td>
               <span class="smc-edit-button mr-2 cp" (click)="handleEditCompany(editCompanyModal, company)"><i class="iconfont icon-edit"></i></span>
               <span class="smc-deactive-button cp" (click)="handleDeactiveCompany(company)"><i class="iconfont icon-shanchu"></i></span>
@@ -64,7 +64,7 @@
       <div class="container-fluid">
         <div class="row mb-3">
           <div class="col-md-6"><span class="fixed-modal-label">Name:</span> <input type="text" name="companyName" [(ngModel)]="currCompany.name"/> </div>
-          <div class="col-md-6"><span class="fixed-modal-label">Turn Over: </span> <input type="text" name="turnOver" [(ngModel)]="currCompany.turnover"/></div>
+          <div class="col-md-6"><span class="fixed-modal-label">Turn Over: </span> <input type="text" name="turnOver" [(ngModel)]="currCompany.turnOver"/></div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6"><span class="fixed-modal-label">CEO:</span><input type="text" name="companyName" [(ngModel)]="currCompany.ceo"/> </div>
@@ -94,7 +94,7 @@
           </div>
         </div>
         <div class="row mb-3">
-          <div class="col-md-12"><span class="fixed-modal-label">Board of Director:</span><input type="text" name="companyName" style="width: calc(100% - 178px);" [(ngModel)]="currCompany.boardOfDirector"/></div>
+          <div class="col-md-12"><span class="fixed-modal-label">Board of Director:</span><input type="text" name="companyName" style="width: calc(100% - 178px);" [(ngModel)]="currCompany.boardOfDirectors"/></div>
         </div>
         <div class="row mb-3">
           <div class="col-md-12 d-flex align-items-start">

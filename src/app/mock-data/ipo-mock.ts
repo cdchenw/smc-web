@@ -1,6 +1,6 @@
 import { IPO } from '../interface/ipo';
 
-export const IPO_DATA: IPO[] = [
+export const IPO_DATA: any[] = [
   {
     id: '984df5a2-3ba6-461d-b3a4-0ccc8c9faa9d',
     companyName: 'Datadog',

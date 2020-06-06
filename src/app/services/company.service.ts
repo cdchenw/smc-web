@@ -2,11 +2,11 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, delay, switchMap, tap, map } from 'rxjs/operators';
 
 import { SortColumn, SortDirection } from '../directives/sortable-header.directive';
 import { Company } from '../interface/company';
-import { COMPANIES } from '../mock-data/company-mock';
+// import { COMPANIES } from '../mock-data/company-mock';
 import { HttpClient } from '@angular/common/http';
 import { SMC_APIS } from '../common';
 
@@ -94,20 +94,25 @@ export class CompanyService {
   }
 
   private _search(): Observable<SearchResult> {
-
-    return this._httpClient.get<any>(SMC_APIS.company);
-
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
 
-    // 1. sort
-    let companyList = sort(COMPANIES, sortColumn, sortDirection);
+    return this._httpClient.get<any>(SMC_APIS.company).pipe(
+      map(data=>{
+        // 1. sort
+        let companyList = sort(data, sortColumn, sortDirection);
 
-    // 2. filter
-    companyList = companyList.filter(company => matches(company, searchTerm, this.pipe));
-    const total = companyList.length;
+        // 2. filter
+        companyList = companyList.filter(company => matches(company, searchTerm, this.pipe));
+        const total = companyList.length;
 
-    // 3. paginate
-    companyList = companyList.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({companyList, total});
+        // 3. paginate
+        companyList = companyList.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+        return {companyList, total};
+      })
+    );
+  }
+
+  public fetch(): void{
+    this.searchTerm = "";
   }
 }

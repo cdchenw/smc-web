@@ -1,8 +1,9 @@
 export interface StockExchange{
   id: string;
-  code: string;
   name: string;
+  shortName: string;
   region: string;
   contactAddress: string;
   brief: string;
+  remarks: string;
 }

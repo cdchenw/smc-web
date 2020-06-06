@@ -36,12 +36,13 @@ export class ManageIpoComponent implements OnInit {
   handleOpenNewModal(template: any){
     this.currIpo = {
       id: null,
-      companyName: null,
-      exchangeCode: null,
+      compId: null,
+      stockCode: null,
+      stockExchange: null,
       pricePerShare: null,
       totalShare: null,
       openDate: null,
-      brief: null
+      remarks: null
     };
     this.ipoModalTitle = "Add New Stock Exchange";
     this._ngbModal.open(template, { size: 'lg', backdrop: 'static', centered: true });

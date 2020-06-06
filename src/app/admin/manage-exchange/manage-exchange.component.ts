@@ -31,11 +31,12 @@ export class ManageExchangeComponent implements OnInit {
   handleOpenNewModal(template: any){
     this.currExchange = {
       id: null,
-      code: null,
+      shortName: null,
       name: null,
       region: null,
       contactAddress: null,
-      brief: null
+      brief: null,
+      remarks: null
     };
     this.exchangeModalTitle = "Add New Stock Exchange";
     this._ngbModal.open(template, { size: 'lg', backdrop: 'static', centered: true });

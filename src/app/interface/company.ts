@@ -5,11 +5,11 @@ export interface Company {
   id: string;
   logo: string;
   name: string;
-  turnover: number;
+  turnOver: number;
   ceo: string;
-  boardOfDirector: string;
-  sector: Array<Sector>;
+  boardOfDirectors: string;
+  sectors: Array<Sector>;
   briefWriteUp: string;
-  stockExchagneList: Array<CompanyStockExchange>;
+  companyExchanges: Array<CompanyStockExchange>;
   isCollapsed: boolean;
 }

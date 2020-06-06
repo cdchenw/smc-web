@@ -8,7 +8,7 @@
       <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col" sortable="code">Company Name</th>
+        <th scope="col" sortable="code">Stock Code</th>
         <th scope="col" sortable="name">Stock Exchange</th>
         <th scope="col" sortable="region">Price Per Share</th>
         <th scope="col" sortable="contact">Total Share.</th>
@@ -19,8 +19,8 @@
       <tbody>
       <tr *ngFor="let ipo of ipoList$ | async; let rowNum = index;">
         <th scope="row">{{ rowNum+1 }}</th>
-        <td>{{ ipo.companyName }}</td>
-        <td>{{ ipo.exchangeCode }}</td>
+        <td>{{ ipo.stockCode }}</td>
+        <td>{{ ipo.stockExchange.shortName }}</td>
         <td>{{ ipo.pricePerShare | currency: '$': true: '1.2-2' }}</td>
         <td>{{ ipo.totalShare | number: '1.2-2'}}</td>
         <td>{{ ipo.openDate }}</td>
@@ -45,8 +45,8 @@
     <div class="modal-body">
       <div class="container-fluid">
         <div class="row mb-3">
-          <div class="col-md-6"><span class="fixed-modal-label">Company Name: </span> <input type="text" name="companyName" [(ngModel)]="currIpo.companyName"/></div>
-          <div class="col-md-6"><span class="fixed-modal-label">Stock Exchange:</span> <input type="text" name="exchangeCode" [(ngModel)]="currIpo.exchangeCode"/> </div>
+          <div class="col-md-6"><span class="fixed-modal-label">Company Name: </span> <input type="text" name="companyName" [(ngModel)]="currIpo.compId"/></div>
+          <div class="col-md-6"><span class="fixed-modal-label">Stock Exchange:</span> <input type="text" name="exchangeCode" [(ngModel)]="currIpo.stockExchange"/> </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6"><span class="fixed-modal-label">Price Per Share:</span><input type="text" name="pricePerShare" [(ngModel)]="currIpo.pricePerShare"/> </div>
@@ -58,7 +58,7 @@
         <div class="row mb-3">
           <div class="col-md-12 d-flex align-items-start">
             <span class="fixed-modal-label">Brief:</span>
-            <textarea name="brief" rows="4" maxlength="800" placeholder="please fill stock exchange brief description." style="width: calc(100% - 178px);" [(ngModel)]="currIpo.brief"></textarea>
+            <textarea name="brief" rows="4" maxlength="800" placeholder="please fill stock exchange brief description." style="width: calc(100% - 178px);" [(ngModel)]="currIpo.remarks"></textarea>
           </div>
         </div>
       </div>

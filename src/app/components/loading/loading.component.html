@@ -1,1 +1,4 @@
-<p>loading works!</p>
+<div class="loading smc-loading-{{type}} {{size}}" [ngStyle]="{'display': _loadingService.showLoading ? 'flex' : 'none'}">
+  <div class="loader"></div>
+  <div class="desc">Loading data...</div>
+</div>

@@ -3,5 +3,7 @@ export const SMC_APIS = {
   authenticate: "api/authenticate",
   logout: "api/logout",
   importData: "api/importData",
-  company: "api/company"
+  company: "api/company",
+  ipo: "api/company/ipo",
+  stockExchange: "api/company/exchange"
 }
