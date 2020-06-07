@@ -5,5 +5,6 @@ export const SMC_APIS = {
   importData: "api/importData",
   company: "api/company",
   ipo: "api/company/ipo",
-  stockExchange: "api/company/exchange"
+  stockExchange: "api/company/exchange",
+  stockPrice: "api/stockprice/search"
 }
