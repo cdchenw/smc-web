@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interface/user';
-import { SMC_CONSTANTS, GlobalService } from 'src/app/common';
+import { SMC_CONSTANTS, GlobalService, Broadcaster, SMC_EVENTS } from 'src/app/common';
 import { Role } from 'src/app/interface/Role';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/components/toasts/toast.service';
@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   user: User;
 
   constructor(
+    private _broadcaster: Broadcaster,
     private _loadingService: LoadingService,
     private _toastService: ToastService,
     private _globalService: GlobalService,
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
     private _router: Router
   ) { 
     this.user = {} as User;
-    this.user.email = "10594559@qq.com";
+    this.user.email = "admin@smc.com";//"10594559@qq.com";
     this.user.password = "passw0rd";
   }
 
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
         this._globalService.currentUser = data.user;
         this._globalService.currentRole = {name: data.user.userType} as Role;
       }
+      this._broadcaster.broadcast(SMC_EVENTS.USER_LOADED);
       if(data.user.userType==SMC_CONSTANTS.ROLE.ADMIN){
         this._router.navigateByUrl("/mcompany");
       }else{

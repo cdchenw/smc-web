@@ -4,7 +4,7 @@
   <div *ngIf="globalService.isAdmin" class="status-area" ngbDropdown>
     <span>Hi, Admin</span><span style="cursor: pointer;" id="myProfileMenue" ngbDropdownToggle><i class="iconfont icon-user"></i></span>
     <div ngbDropdownMenu aria-labelledby="myProfileMenue">
-      <button ngbDropdownItem>Log Out</button>
+      <button ngbDropdownItem (click)="handleLogOut()">Log Out</button>
     </div>
   </div>
   <div *ngIf="!globalService.isAdmin" class="status-area" ngbDropdown>

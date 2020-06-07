@@ -7,6 +7,6 @@ export const SMC_CONSTANTS = {
 };
 
 export const SMC_EVENTS = {
-
+  USER_LOADED: "USER_LOADED"
 }
 

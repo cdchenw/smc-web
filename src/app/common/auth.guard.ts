@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Params, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { GlobalService } from './global.service';
-import { SMC_CONSTANTS } from './constant';
+import { SMC_CONSTANTS, SMC_EVENTS } from './constant';
 import { HttpClient } from '@angular/common/http';
 import { SMC_APIS } from './api.config';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../interface/user';
 import { Role } from '../interface/Role';
+import { Broadcaster } from './broadcaster';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private _router: Router,
     private _httpClient: HttpClient,
-    private _globals: GlobalService
+    private _globals: GlobalService,
+    private _broadcaster: Broadcaster
   ) { }
   
   canActivate(
@@ -38,6 +40,7 @@ export class AuthGuard implements CanActivate {
           if(data && data.email){
             self._globals.currentUser = data;
             self._globals.currentRole = {name: data.userType} as Role;
+            this._broadcaster.broadcast(SMC_EVENTS.USER_LOADED);
             let preUrl = localStorage.getItem("PRE_URL");
             if(preUrl){
               self._router.navigateByUrl(preUrl);
