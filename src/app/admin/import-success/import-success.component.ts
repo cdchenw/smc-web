@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SMC_CONSTANTS } from 'src/app/common';
 
 @Component({
   selector: 'admin-import-success',
@@ -8,26 +9,46 @@ import { Router } from '@angular/router';
 })
 export class ImportSuccessComponent implements OnInit {
 
-  companyName: string;
+  stockCode: string;
   stockExchange: string;
   numOfImported: number;
-  fromDate: string;
-  endDate: string;
+  fromDate: Date;
+  endDate: Date;
 
   constructor(
     private _router: Router
   ) { }
 
   ngOnInit(): void {
-    this.companyName = "OCBC";
-    this.stockExchange = "NSE";
-    this.numOfImported = 110;
-    this.fromDate = "2020-04-01 00:00";
-    this.fromDate = "2020-04-18 23:59";
+    let reportData = JSON.parse(sessionStorage.getItem(SMC_CONSTANTS.IMPORT_RESULT_REPORT));
+    let successList = reportData["SUCCESS"];
+    if(successList && successList.length>0){
+      this.stockCode = successList[0].stockCode;
+      this.stockExchange = successList[0].stockExchange;
+      this.numOfImported = successList.length;
+      let fromDate;
+      let endDate;
+      successList.forEach(spItem => {
+        var spDate = new Date(spItem.date.replace('-', '/'));
+        if(!fromDate){
+          fromDate = spDate;
+        }else if(fromDate.getTime()>spDate.getTime()){
+          fromDate = spDate;
+        }
+
+        if(!endDate){
+          endDate = spDate;
+        }else if(endDate.getTime()<spDate.getTime()){
+          endDate = spDate;
+        }
+      });
+      this.fromDate = fromDate;
+      this.endDate = endDate;
+    }
   }
 
   handleClose(): void{
-    this._router.navigate(['/import']);
+    this._router.navigateByUrl("/import");
   }
 
 }

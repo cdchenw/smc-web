@@ -35,7 +35,9 @@ export class SmcHttpInterceptor implements HttpInterceptor {
   //construct the http requst with new header 
   protected normalizeRequestHeaders(request: HttpRequest<any>): HttpRequest<any> {
     let modifiedHeaders = new HttpHeaders();
-    modifiedHeaders = modifiedHeaders.set('Content-Type', 'application/json');
+    if(request.url.indexOf(SMC_APIS.importData) ==-1){
+      modifiedHeaders = modifiedHeaders.set('Content-Type', 'application/json');
+    }
     if (request.url.indexOf(SMC_APIS.authenticate) == -1) {
       modifiedHeaders = this.addAuthorizationHeaders(modifiedHeaders);
     }

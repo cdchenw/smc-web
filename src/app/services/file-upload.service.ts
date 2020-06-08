@@ -13,7 +13,7 @@ export class FileUploadService {
 
   postFile(fileToUpload: File): Observable<any> {
     const formData: FormData = new FormData();
-    formData.append('fileKey', fileToUpload, fileToUpload.name);
+    formData.append('file', fileToUpload, fileToUpload.name);
     return this._httpClient.post(SMC_APIS.importData, formData);
   }
 }

@@ -96,7 +96,7 @@ export class ComparisionComponent implements OnInit {
   }
 
   private convertToStrDate(ngbDs: NgbDateStruct){
-    let rs = this.startDate.year + "-";
+    let rs = ngbDs.year + "-";
     if(ngbDs.month<10){
       rs += "0" + ngbDs.month + "-";
     }else{

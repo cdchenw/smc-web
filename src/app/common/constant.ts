@@ -3,7 +3,8 @@ export const SMC_CONSTANTS = {
   ROLE: {
     ADMIN: "ADMIN",
     USER: "USER"
-  }
+  },
+  IMPORT_RESULT_REPORT: "IMPORT_RESULT_REPORT"
 };
 
 export const SMC_EVENTS = {

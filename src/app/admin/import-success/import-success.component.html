@@ -5,7 +5,7 @@
       you have successfully upload the file.</p>
     </div>
     <div>
-      <span>Company Name: </span><span>{{companyName}}</span>
+      <span>Stock Code: </span><span>{{stockCode}}</span>
     </div>
     <div>
       <span>Stock Exchange: </span><span>{{stockExchange}}</span>
@@ -13,11 +13,11 @@
       <span>No. of records imported: </span><span>{{numOfImported}}</span>
     </div>
     <div>
-      <span>From Date: </span><span>{{fromDate}}</span>
+      <span>From Date: </span><span>{{fromDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
     </div>
     <div>
-      <span>End Date: </span><span>{{endDate}}</span>
+      <span>End Date: </span><span>{{endDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
     </div>
   </div>
-  <div class="action-bar"><input type="button" class="btn btn-primary close-button" value="Close" (click)="handleClose"/></div>
+  <div class="action-bar"><input type="button" class="btn btn-primary close-button" value="Close" (click)="handleClose()"/></div>
 </div>
