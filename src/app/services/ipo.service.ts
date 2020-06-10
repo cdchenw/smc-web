@@ -85,4 +85,16 @@ export class IpoService {
   public fetch(): void{
     this._search$.next();
   }
+
+  public addNew(ipo: any): Observable<any>{
+    return this._httpClient.post(SMC_APIS.ipo, JSON.stringify(ipo));
+  }
+
+  public update(ipo: any): Observable<any>{
+    return this._httpClient.put(SMC_APIS.ipo, JSON.stringify(ipo));
+  }
+
+  public delete(id: string): Observable<any>{
+    return this._httpClient.delete(SMC_APIS.ipo+"/"+id);
+  }
 }

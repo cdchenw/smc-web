@@ -115,4 +115,16 @@ export class CompanyService {
   public fetch(): void{
     this.searchTerm = "";
   }
+
+  public addNew(company: any): Observable<any>{
+    return this._httpClient.post(SMC_APIS.company, JSON.stringify(company));
+  }
+
+  public update(company: any): Observable<any>{
+    return this._httpClient.put(SMC_APIS.company, JSON.stringify(company));
+  }
+
+  public delete(id: string): Observable<any>{
+    return this._httpClient.delete(SMC_APIS.company+"/"+id);
+  }
 }

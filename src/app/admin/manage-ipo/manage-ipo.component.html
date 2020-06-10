@@ -30,7 +30,7 @@
     </table>
     <div class="d-flex justify-content-end p-2" *ngIf="!isNoData">
       <ngb-pagination
-        [collectionSize]="(total$ | async)!" [(page)]="ipoService.page" [pageSize]="ipoService.pageSize">
+        [collectionSize]="(total$ | async)!" [(page)]="_ipoService.page" [pageSize]="_ipoService.pageSize">
       </ngb-pagination>
     </div>
   </form>
@@ -43,29 +43,48 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="container-fluid">
+      <div class="container-fluid"> 
         <div class="row mb-3">
-          <div class="col-md-6"><span class="fixed-modal-label">Company Name: </span> <input type="text" name="companyName" [(ngModel)]="currIpo.compId"/></div>
-          <div class="col-md-6"><span class="fixed-modal-label">Stock Exchange:</span> <input type="text" name="exchangeCode" [(ngModel)]="currIpo.stockExchange"/> </div>
+          <div class="col-md-6">
+            <span class="fixed-modal-label">Company: </span>
+            <select name="exchange" [(ngModel)]="currIpo.compId" style="width: 200px; height: 27px;">
+              <option value='' disabled selected>Please Choose</option>  
+              <option *ngFor="let compitem of companyList$ | async" [ngValue]="compitem.id">{{ compitem.name }}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <span class="fixed-modal-label">Stock Exchange:</span>
+            <select name="exchange" [(ngModel)]="currIpo.stockExchange.id" style="width: 200px; height: 27px;">
+              <option value='' disabled selected>Please Choose</option>  
+              <option *ngFor="let excitem of exchangeList$ | async" [ngValue]="excitem.id">{{ excitem.name }}</option>
+            </select>
+          </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6"><span class="fixed-modal-label">Price Per Share:</span><input type="text" name="pricePerShare" [(ngModel)]="currIpo.pricePerShare"/> </div>
-          <div class="col-md-6"><span class="fixed-modal-label">Total Share.:</span><input type="text" name="totalShare" [(ngModel)]="currIpo.totalShare"/> </div>
+          <div class="col-md-6"><span class="fixed-modal-label">Total Share.:</span><input type="text" style="width: 200px;" name="totalShare" [(ngModel)]="currIpo.totalShare"/> </div>
         </div>
         <div class="row mb-3">
-          <div class="col-md-12"><span class="fixed-modal-label">Open Date:</span><input type="text" name="openDate" [(ngModel)]="currIpo.openDate"/> </div>
+          <div class="col-md-6 input-group">
+            <span class="fixed-modal-label">Open Date:</span>
+            <input class="form-control" placeholder="yyyy-mm-dd" style="width: 200px;"
+                  name="openDate" [(ngModel)]="openDate" ngbDatepicker #calendar1="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="calendar1.toggle()" type="button"></button>
+            </div>
+          </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-12 d-flex align-items-start">
             <span class="fixed-modal-label">Brief:</span>
-            <textarea name="brief" rows="4" maxlength="800" placeholder="please fill stock exchange brief description." style="width: calc(100% - 178px);" [(ngModel)]="currIpo.remarks"></textarea>
+            <textarea name="brief" rows="4" maxlength="800" placeholder="please fill stock exchange brief description." style="width: calc(100% - 150px);" [(ngModel)]="currIpo.remarks"></textarea>
           </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-      <button type="button" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-primary" (click)="handleSave()">Save</button>
     </div>
   </ng-template>
 </div>

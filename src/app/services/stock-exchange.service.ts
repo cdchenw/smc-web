@@ -85,4 +85,16 @@ export class StockExchangeService {
   public fetch(): void{
     this._search$.next();
   }
+
+  public addNew(stockExchange: StockExchange): Observable<any>{
+    return this._httpClient.post(SMC_APIS.stockExchange, JSON.stringify(stockExchange));
+  }
+
+  public update(stockExchange: StockExchange): Observable<any>{
+    return this._httpClient.put(SMC_APIS.stockExchange, JSON.stringify(stockExchange));
+  }
+
+  public delete(id: string): Observable<any>{
+    return this._httpClient.delete(SMC_APIS.stockExchange+"/"+id);
+  }
 }

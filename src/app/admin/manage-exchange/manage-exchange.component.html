@@ -8,7 +8,7 @@
       <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col" sortable="code">Exchange Code</th>
+        <th scope="col" sortable="shortName">Exchange Code</th>
         <th scope="col" sortable="name">Name</th>
         <th scope="col" sortable="region">Region</th>
         <th scope="col" sortable="contact">Contact Address</th>
@@ -18,7 +18,7 @@
       <tbody>
       <tr *ngFor="let exchange of exchangeList$ | async">
         <th scope="row">{{ exchange.logo }}</th>
-        <td>{{ exchange.code }}</td>
+        <td>{{ exchange.shortName }}</td>
         <td>{{ exchange.name }}<span class="link link-primary" ngbPopover="{{exchange.brief}}" triggers="mouseenter:mouseleave" popoverTitle="Brief">&nbsp; [View Brief]</span></td>
         <td>{{ exchange.region }}</td>
         <td>{{ exchange.contactAddress }}</td>
@@ -47,7 +47,7 @@
       <div class="container-fluid">
         <div class="row mb-3">
           <div class="col-md-6"><span class="fixed-modal-label">Stock Exchange: </span> <input type="text" name="name" [(ngModel)]="currExchange.name"/></div>
-          <div class="col-md-6"><span class="fixed-modal-label">Short Name:</span> <input type="text" name="code" [(ngModel)]="currExchange.shortName"/> </div>
+          <div class="col-md-6"><span class="fixed-modal-label">Short Name:</span> <input type="text" name="shortName" [(ngModel)]="currExchange.shortName"/> </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6"><span class="fixed-modal-label">Region:</span><input type="text" name="region" [(ngModel)]="currExchange.region"/> </div>
@@ -63,7 +63,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-      <button type="button" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-primary" (click)="handleSave()">Save</button>
     </div>
   </ng-template>
 </div>

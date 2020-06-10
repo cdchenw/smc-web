@@ -12,3 +12,22 @@
       text-overflow:ellipsis;
   }
 }
+
+.modal-body{
+  .se-badge-group{
+    display: inline-flex;
+    align-items: center;
+    width: calc(100% - 250px);
+    font-size: 16px;
+    .badge{
+      padding: 0.5rem 0.8rem;
+      >a{
+        padding-left: 8px;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
+

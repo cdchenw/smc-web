@@ -14,7 +14,7 @@
         <th scope="col" width="15%" sortable="name" (sort)="onSort($event)">Company Name</th>
         <th scope="col" width="15%" sortable="turnOver" (sort)="onSort($event)">Turn Over</th>
         <th scope="col" width="15%" sortable="ceo" (sort)="onSort($event)">CEO</th>
-        <th scope="col" sortable="boardOfDirector" (sort)="onSort($event)">Board Of Director</th>
+        <th scope="col" sortable="boardOfDirectors" (sort)="onSort($event)">Board Of Director</th>
         <th scope="col" width="80">Action</th>
       </tr>
       </thead>
@@ -22,11 +22,11 @@
         <ng-container *ngFor="let company of companyList$ | async; let index = index;">
           <tr >
             <td scope="row">
-              <span *ngIf="company.isCollapsed" class="cp ml-1 icon-primary" (click)="company.isCollapsed = !company.isCollapsed" [attr.aria-expanded]="!company.isCollapsed"><i class="iconfont icon-downarrow"></i></span>
-              <span *ngIf="!company.isCollapsed" class="cp ml-1 icon-primary" (click)="company.isCollapsed = !company.isCollapsed" [attr.aria-expanded]="!company.isCollapsed"><i class="iconfont icon-uparrow"></i></span>
+              <span *ngIf="!company.isCollapsed" class="cp ml-1 icon-primary" (click)="company.isCollapsed = !company.isCollapsed" [attr.aria-expanded]="!company.isCollapsed"><i class="iconfont icon-downarrow"></i></span>
+              <span *ngIf="company.isCollapsed" class="cp ml-1 icon-primary" (click)="company.isCollapsed = !company.isCollapsed" [attr.aria-expanded]="!company.isCollapsed"><i class="iconfont icon-uparrow"></i></span>
             </td>
             <td><ngb-highlight [result]="company.name" [term]="companyService.searchTerm"></ngb-highlight></td>
-            <td><span class="col-val">{{ company.turnover | currency: '$': true: '1.2-2' }}</span></td>
+            <td><span class="col-val">{{ company.turnOver | currency: '$': true: '1.2-2' }}</span></td>
             <td><span class="col-val">{{ company.ceo }}</span></td>
             <td><span class="col-val">{{ company.boardOfDirectors }}</span></td>
             <td>
@@ -34,12 +34,12 @@
               <span class="smc-deactive-button cp" (click)="handleDeactiveCompany(company)"><i class="iconfont icon-shanchu"></i></span>
             </td>
           </tr>
-          <tr id="collRow{{ index }}" [ngbCollapse]="company.isCollapsed">
+          <tr id="collRow{{ index }}" [ngbCollapse]="!company.isCollapsed">
             <td></td>
             <td colspan="5">
               <div>Brief: {{ company.briefWriteUp }}</div>
-              <div>Sector: <span class="badge badge-pill badge-primary mr-2" style="font-size: 12px;" *ngFor="let item of company.sector">{{item.name}}</span> </div>
-              <div>Stock Exchange: <span class="badge badge-pill badge-primary mr-2" style="font-size: 12px;" *ngFor="let exchange of company.stockExchagneList">{{exchange.stockExchange.name}}:{{exchange.stockCode}}</span> </div>
+              <div>Sector: <span class="badge badge-pill badge-primary mr-2" style="font-size: 12px;" *ngFor="let item of company.sectors">{{item.name}}</span> </div>
+              <div>Stock Exchange: <span class="badge badge-pill badge-primary mr-2" style="font-size: 12px;" *ngFor="let exchange of company.companyExchanges">{{exchange.stockExchange.name}}:{{exchange.stockCode}}</span> </div>
             </td>
           </tr>
         </ng-container>
@@ -71,10 +71,10 @@
         </div>
         <div class="row mb-3">
           <div class="col-md-12 d-flex"><span class="fixed-modal-label">Sector: </span>
-            <ng-multiselect-dropdown
+            <ng-multiselect-dropdown style="min-width: 280px;"
               [settings]="sectordwnSettings"
               [data]="sectorDwnList"
-              [(ngModel)]="sectorSelectedItems"
+              [(ngModel)]="currCompany.sectors"
               (onSelect)="onItemSelect($event)"
               (onSelectAll)="onSelectAll($event)"
             >
@@ -83,14 +83,11 @@
         </div>
         <div class="row mb-3">
           <div class="col-md-12 d-flex"><span class="fixed-modal-label">Stock Exchanges:</span>
-            <ng-multiselect-dropdown
-              [settings]="exchangeDwnSettings"
-              [data]="exchangeDwnList"
-              [(ngModel)]="exchangeSelectedItems"
-              (onSelect)="onItemSelect($event)"
-              (onSelectAll)="onSelectAll($event)"
-            >
-            </ng-multiselect-dropdown>
+            <div class="se-badge-group">
+              <span *ngIf="compExchangeList.length==0" style="color: orangered; font-size: 13px;">*Click Add More... to add more stock exchange details.</span>
+              <span class="badge badge-primary mr-2" *ngFor="let item of compExchangeList">{{item.stockExchange.shortName + ":" + item.stockCode}}<a (click)="handleDeleteBadge(item)">x</a></span>
+            </div>
+            <button type="button" class="btn btn-link" (click)="clickAddMore(addCSEModal)">Add More...</button>
           </div>
         </div>
         <div class="row mb-3">
@@ -106,7 +103,36 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-      <button type="button" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-primary" (click)="clickBtnSave()">Save</button>
+    </div>
+  </ng-template>
+  <!-- Modal -->
+  <ng-template #addCSEModal let-modalA>
+    <div class="modal-header">
+      <h6 class="modal-title">Add Company Stock Exchange Detail</h6>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid"> 
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <span class="fixed-modal-label">Stock Exchange:</span>
+            <select name="exchange" [(ngModel)]="exchange" style="width: 100%; height: 27px;">
+              <option value='' disabled selected>Please Choose</option>  
+              <option *ngFor="let excitem of exchangeList$ | async" [ngValue]="excitem">{{ excitem.name + '|' + excitem.shortName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <span class="fixed-modal-label">Stock Code:</span>
+            <input type="text" name="stockCode" [(ngModel)]="stockCode" style="width: 100%;"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modalA.close('Close click')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="clickConfirm()">Confirm</button>
     </div>
   </ng-template>
 </div>
