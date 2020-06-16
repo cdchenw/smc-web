@@ -1,4 +1,5 @@
-#stock marketing charting program
+#stock marketing charting program  
+#updated on Jun 10, 2020
 
 #screen flow
 https://github.com/cdchenw/smc-web/tree/master/desgin/Screenflow:Wireframe.docx
