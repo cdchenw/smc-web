@@ -1,0 +1,51 @@
+#stock marketing charting program  
+#updated on Jun 17, 2020
+
+docker file
+https://github.com/cdchenw/smc-auth-service/Dockerfile
+https://github.com/cdchenw/smc-company-service/Dockerfile
+https://github.com/cdchenw/smc-stock-service/Dockerfile
+https://github.com/cdchenw/smc-upload-service/Dockerfile
+https://github.com/cdchenw/smc-gateway/Dockerfile
+https://github.com/cdchenw/smc-service-registry/Dockerfile
+
+jekins files
+https://github.com/cdchenw/smc-auth-service/jenkinsfile
+https://github.com/cdchenw/smc-company-service/jenkinsfile
+https://github.com/cdchenw/smc-stock-service/jenkinsfile
+https://github.com/cdchenw/smc-upload-service/jenkinsfile
+https://github.com/cdchenw/smc-gateway/jenkinsfile
+https://github.com/cdchenw/smc-service-registry/jenkinsfile
+
+jmeter file
+https://github.com/cdchenw/smc-company-service/smc-company-service.jmx
+
+#screen flow
+https://github.com/cdchenw/smc-web/tree/master/desgin/Screenflow:Wireframe.docx
+
+#frontend project
+https://github.com/cdchenw/smc-web/
+
+#mysql database desgin(open with mysql workbench)
+https://github.com/cdchenw/smc-web/tree/master/desgin/smcdb.mwb
+
+#database sql
+https://github.com/cdchenw/smc-web/tree/master/desgin/smcdb_ddl.sql
+
+#micro service for back end
+https://github.com/cdchenw/smc-auth-service
+https://github.com/cdchenw/smc-company-service
+https://github.com/cdchenw/smc-stock-service
+https://github.com/cdchenw/smc-upload-service
+#gateway
+https://github.com/cdchenw/smc-gateway
+#eureka server
+https://github.com/cdchenw/smc-service-registry
+
+
+
+
+
+
+
+
